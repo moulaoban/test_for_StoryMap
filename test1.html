@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			@keyframes k_ad_black {
+
+				0%,
+				0% {
+					left: 0%;
+				}
+
+				33%,
+				100% {
+					left: -20%;
+				}
+			}
+
+			@keyframes k_ad_light {
+
+				0%,
+				0% {
+					left: 0%;
+					opacity: 1;
+				}
+
+				33%,
+				100% {
+					left: -20%;
+					opacity: 0;
+				}
+			}
+
+			@keyframes k_ad_left {
+
+				0%,
+				20% {
+					transform: rotateY(-130deg);
+					-ms-transform: rotateY(-130deg);
+					-moz-transform: rotateY(-130deg);
+					-webkit-transform: rotateY(-130deg);
+					-o-transform: rotateY(-130deg);
+				}
+
+				33%,
+				100% {
+					transform: rotateY(0);
+					-ms-transform: rotateY(0);
+					-moz-transform: rotateY(0);
+					-webkit-transform: rotateY(0);
+					-o-transform: rotateY(0);
+				}
+			}
+
+			@keyframes k_ad_right {
+
+				0%,
+				20% {
+					transform: rotateY(130deg);
+					-ms-transform: rotateY(130deg);
+					-moz-transform: rotateY(130deg);
+					-webkit-transform: rotateY(130deg);
+					-o-transform: rotateY(130deg);
+				}
+
+				33%,
+				100% {
+					transform: rotateY(0);
+					-ms-transform: rotateY(0);
+					-moz-transform: rotateY(0);
+					-webkit-transform: rotateY(0);
+					-o-transform: rotateY(0);
+				}
+			}
+
+			html,
+			body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			/* 背景变换 */
+			.background {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+			}
+
+			.background-pic-black {
+				position: absolute;
+				width: 120%;
+				height: 100%;
+				background: url(' https://moulaoban.github.io/test_for_StoryMap/wuhan-5102207_1280.jpg ') no-repeat;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				z-index: 0;
+				animation: k_ad_black 15s ease infinite;
+				-moz-animation: k_ad_black 15s ease infinite;
+				-webkit-animation: k_ad_black 15s ease infinite;
+				-o-animation: k_ad_black 15s ease infinite;
+			}
+
+			.background-pic-light {
+				position: absolute;
+				width: 120%;
+				height: 100%;
+				background: url(' https://moulaoban.github.io/test_for_StoryMap/wuhan-5102207_1280_black.jpg') no-repeat;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				z-index: 0;
+				animation: k_ad_light 15s ease infinite;
+				-moz-animation: k_ad_light 15s ease infinite;
+				-webkit-animation: k_ad_light 15s ease infinite;
+				-o-animation: k_ad_light 15s ease infinite;
+			}
+
+			/* 门变换 */
+			.door {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				background: no-repeat;
+				z-index: 90;
+			}
+
+			.door-left,
+			.door-right {
+				float: left;
+				width: 50%;
+				height: 100%;
+				position: relative;
+				z-index: 100;
+			}
+
+			.door-left {
+				background: url(' https://moulaoban.github.io/test_for_StoryMap/door-left.png') no-repeat;
+				background-repeat: no-repeat;
+				background-position: center right;
+				background-size: cover;
+				transform-origin: left center;
+				-ms-transform-origin: left center;
+				-webkit-transform-origin: left center;
+				-moz-transform-origin: left center;
+				-o-transform-origin: left center;
+				animation: k_ad_left 15s ease infinite;
+				-moz-animation: k_ad_left 15s ease infinite;
+				-webkit-animation: k_ad_left 15s ease infinite;
+				-o-animation: k_ad_left 15s ease infinite;
+			}
+
+			.door-right {
+				background: url(' https://moulaoban.github.io/test_for_StoryMap/door-right.png ') no-repeat;
+				background-repeat: no-repeat;
+				background-position: center left;
+				background-size: cover;
+				transform-origin: right center;
+				-ms-transform-origin: right center;
+				-webkit-transform-origin: right center;
+				-moz-transform-origin: right center;
+				-o-transform-origin: right center;
+				animation: k_ad_right 15s ease infinite;
+				-moz-animation: k_ad_right 15s ease infinite;
+				-webkit-animation: k_ad_right 15s ease infinite;
+				-o-animation: k_ad_right 15s ease infinite;
+			}
+		</style>
+		<script type="text/javascript">
+		</script>
+	</head>
+	<body>
+		<div class="background">
+			<div id="background-pic-black" class="background-pic-black"></div>
+			<div id="background-pic-light" class="background-pic-light"></div>
+		</div>
+		<div id="door" class="door">
+			<div id="door-left" class="door-left"></div>
+			<div id="door-right" class="door-right"></div>
+		</div>
+	</body>
+</html>
