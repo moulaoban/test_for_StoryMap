@@ -1,0 +1,132 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=mix-line-bar&code=PYBwLglsB2AEC8sDeAoWszGAG0iAXMmuhgE4QDmFApqYQOQCGAHhAM70A0x6L7ACsAjQwtQqhIkwATxDUGAY1LA2HbpPRKVbAMozs8ohpIKcwOrHoBiAJx36PEgF9HL9E_UYs2AEbBm4o4AZtSMYACupIYSGgAmYYwAahDUAO7isGwAFsDpZOHUnLBRjLEA8tDY0oRBjNhs1LAejugAtowUEAoAKrLRmTl5YKQFRTJyhADa9NjC1FyWPoyk9AC6TZ6SUWyYURnZuYTDBRstmYwAbtQAgmwAku00-4NHI41uzsTN6AY00LGBSTxMCMKb0QC0coAX3UAM8qATvjAByxgGQzQC5GQt6JDAF_qgHrTQBm6oB5v0AcraAPI1APgJay-nmY11YbCmjhiknGhnoCjC1Ao5mkXDOwNBsGmACYAAwARgAzGjhSKACyS0UAVjlIoAbEqAOxKgAcSpsXHowuFeoNIqNQoFAtNAolnH1Ztlq02JD4bEEwlEFgZGiZDGypVyDmMH3cxAdxGk1PYdMknvQ3ssFzqBW5xmgjFazKhcKRyMAEP-AfrlAMKKgEh_5MaVrCQiaoVCx1tFiEEVq6u12Bu2gJ7AN5tnZ0AGUYPmonaMxlgQXM7TA7oYSA7BScljOQdO0bOcfoc_mLdT6YYmNxhNJpck5eghAAtCKW-0ArBlS226QO4R5S2-wOh4DR-PSJPp5ZZ0TagFwAUgDDRlw-UN0AachqFpfl6TOHcMxhBEUWPKQ-gYJYVhbTAcDwL9jE3AAxCcwn_IJwmgBRIBgWAAApNwAShHUdimoCJSDgTdYAAaksWBC3oABuM5g0DFteSjUdNWleUADoxSKGxpTFRSbCKEUhXlNVFKvWARRVaVNO0gVlQ0wzxTFIVFIFcz5Q0hyjKFWz7O0sUbGVMyjPlUVFNfPybH0-8jOVaURTOVZXEdGNYBQvdsXxYkyXw7DLFmaAtzOcMaTuf5qFvK8128Ij2I0MiKKnMQxxouioDgZigLY-Kti4yJeKAgShLA8SOOXdxpISKYNM1MLTOVNUilMoVpRmxTptgJSvKKJS1S02ANIUopzzs-VNvWlTYAFAygr2xb5q25SxRiyQoJQJxRKAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/zh/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/zh/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/zh/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      crossStyle: {
+        color: '#999'
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  legend: {
+    data: ['中巴双边贸易额', '巴基斯坦经济增速']
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019','2020','2021','2022','2023','2024'],
+      axisPointer: {
+        type: 'shadow'
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '中巴双边贸易额（亿元）',
+      min: 800,
+      max: 1700,
+      interval: 100,
+      axisLabel: {
+        formatter: '{value} '
+      }
+    },
+    {
+      type: 'value',
+      name: '巴基斯坦经济增速',
+      min: -1,
+      max: 6,
+      interval: 5,
+      axisLabel: {
+        formatter: '{value} %'
+      }
+    }
+  ],
+  series: [
+    {
+      name: '中巴双边贸易额',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + ' 亿元';
+        }
+      },
+      data: [
+        845.3, 943.9, 1057.1, 1164.9, 1263.1, 1330.2, 1253.2, 1030.2, 1396.9, 1501.5, 1597.6, 1641
+      ]
+    },
+    {
+      name: '巴基斯坦经济增速',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + ' %';
+        }
+      },
+      data: [3.86, 4.67, 4.04, 4.7, 5.39, 5.79, 3.45, -0.59, 5.73, 2.15, -0.74, 3.33]
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
