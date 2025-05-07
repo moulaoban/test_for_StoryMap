@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Data Visualization</title>
+    <!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 Papa Parse 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 创建用于显示图表的 DOM 元素 -->
+    <div id="myChart" style="width: 800px; height: 600px;"></div>
+    <script>
+        // 初始化 myChart
+        const myChart = echarts.init(document.getElementById('myChart'));
+
+        $.get(
+            '所有省份抗疫数据i.csv',
+            function (csvData) {
+                // 解析 CSV 数据
+                const parsedData = Papa.parse(csvData, {
+                    header: true,
+                    dynamicTyping: true
+                }).data;
+
+                run(parsedData);
+            }
+        );
+
+        function run(_rawData) {
+            const datasetWithFilters = [];
+            const startDate = new Date('2020-01-22');
+            const endDate = new Date('2020-06-01');
+            const provinces = [];
+            const datasetMap = {};
+            const seriesList = [];
+
+            _rawData.forEach((row) => {
+                const province = row.Name;
+                const date = new Date(row.Date);
+                const activeCases = row['Active cases'];
+                if (!provinces.includes(province)) {
+                    provinces.push(province);
+                    datasetMap[province] = {
+                        id: 'dataset_' + province,
+                        source: []
+                    };
+                }
+                if (date >= startDate && date <= endDate) {
+                    datasetMap[province].source.push([date, activeCases]);
+                }
+            });
+
+            provinces.forEach((province) => {
+                const datasetId = datasetMap[province].id;
+                datasetWithFilters.push(datasetMap[province]);
+                seriesList.push({
+                    type: 'line',
+                    datasetId: datasetId,
+                    showSymbol: false,
+                    name: province,
+                    endLabel: {
+                        show: true,
+                        formatter: function (params) {
+                            return params.value[0].toLocaleDateString() + ':'+ params.value[1];
+                        }
+                    },
+                    labelLayout: {
+                        moveOverlap:'shiftY'
+                    },
+                    emphasis: {
+                        focus:'series'
+                    },
+                    encode: {
+                        x: 0,
+                        y: 1,
+                        label: [0, 1],
+                        itemName: 0,
+                        tooltip: [1]
+                    }
+                });
+            });
+
+            const option = {
+                animationDuration: 10000,
+                dataset: datasetWithFilters,
+                title: {
+                    text: '中国各省2020年1月22日到6月1日新冠疫情活跃感染者数(除湖北)'
+                },
+                tooltip: {
+                    order: 'valueDesc',
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'time',
+                    nameLocation:'middle',
+                    axisLabel: {
+                        formatter: '{m}/{d}'
+                    }
+                },
+                yAxis: {
+                    name: '活跃感染者数'
+                },
+                grid: {
+                    right: 140
+                },
+                series: seriesList
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>
